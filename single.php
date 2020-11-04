@@ -36,7 +36,7 @@
 									<?php the_author(); ?>
 								</small>
 								<small class="entry-date small"><i class="fa fa-calendar"></i>&nbsp;<?php echo get_the_date(); ?></small>
-								<small class="entry-category small"><i class="fa fa-align-left"></i>&nbsp;<?php //get_all_category_by_post(); ?></small> 
+								<small class="entry-category small"><i class="fas fa-eye"></i></i>&nbsp;<?php echo getPostViews(get_the_ID()); ?></small> 
 							</div>
 							<p><?php the_content() ?></p>
 							<div class="entry-footer">

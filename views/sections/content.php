@@ -138,6 +138,7 @@
 		</div>
 	</div>
 </section>
+
 <section class="content-5">
 	<div class="container container-section-6">
 		<div class="header-section">
@@ -145,23 +146,16 @@
 			<div class="space-line"></div>
 		</div>
 		<?php
-		$args = array(
-			'post_type' => 'post',
-			'posts_per_page'  =>  4,
-			'tax_query' => array(
-				array(
-					'taxonomy' => 'category',
-					'field'    => 'term_id',
-					'terms'    => 28,
-				),
-			),
-		);
-		$the_query = new WP_Query( $args );
-		if ( $the_query->have_posts() ) {
-			echo '<div class="row wp-section-6">';
-			while ( $the_query->have_posts() ) {
-				$the_query->the_post(); ?>
-				<div class="col-md-3 col-xs-12 col-sm-6">
+		$q = new WP_Query(array(
+		    'post_type'         =>  'post',
+		    'posts_per_page'    =>  4,
+		    'meta_key'          =>  'post_views_count',
+		    'orderby'           =>  'meta_value_num',
+		    'order'             =>  'DESC'
+		));
+		if($q->have_posts()):
+		    while ($q->have_posts()):$q->the_post(); ?>
+		    	<div class="col-md-3 col-xs-12 col-sm-6">
 					<div class="section-6">
 						<div class="img-box">
 							<a href="<?php echo get_permalink() ?>"><img alt="" src="<?php the_post_thumbnail_url(); ?>"></a>
@@ -174,11 +168,10 @@
 						</div>
 					</div>
 				</div>
-			<?php }
-			echo '</div>';
-		} else {
-		}
-		wp_reset_postdata(); ?>
+		<?php endwhile;
+		endif; wp_reset_query();
+		?>
+		
 		<div class="banner-bottom">
 			<div class="col-md-6 col-sm-9">
 				<?php
